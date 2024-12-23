@@ -1,0 +1,76 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>Jargon Cleaner Tool</title>  
+    <style>  
+        body {  
+            font-family: Arial, sans-serif;  
+            text-align: center;  
+            margin-top: 50px;  
+        }  
+        canvas {  
+            border: 1px solid black;  
+            margin-top: 20px;  
+        }  
+    </style>  
+</head>  
+<body>  
+    <h1>Jargon Cleaner Tool</h1>  
+    <input type="file" id="upload" accept="image/*">  
+    <button onclick="processImage()">Process Image</button>  
+    <canvas id="canvas"></canvas>  
+
+    <script src="https://docs.opencv.org/4.x/opencv.js"></script>  
+    <script>  
+        let uploadedImage;  
+
+        // Upload image  
+        document.getElementById('upload').addEventListener('change', (event) => {  
+            const file = event.target.files[0];  
+            const reader = new FileReader();  
+            reader.onload = (e) => {  
+                const img = new Image();  
+                img.onload = () => {  
+                    const canvas = document.getElementById('canvas');  
+                    const ctx = canvas.getContext('2d');  
+                    canvas.width = img.width;  
+                    canvas.height = img.height;  
+                    ctx.drawImage(img, 0, 0);  
+                    uploadedImage = img;  
+                };  
+                img.src = e.target.result;  
+            };  
+            reader.readAsDataURL(file);  
+        });  
+
+        // Process image  
+        function processImage() {  
+            if (!uploadedImage) {  
+                alert("Please upload an image first!");  
+                return;  
+            }  
+
+            const canvas = document.getElementById('canvas');  
+            const ctx = canvas.getContext('2d');  
+            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);  
+
+            // Use OpenCV.js to convert to grayscale  
+            const src = cv.matFromImageData(imageData);  
+            const dst = new cv.Mat();  
+            cv.cvtColor(src, dst, cv.COLOR_RGBA2GRAY);  
+
+            // Draw the processed image back on the canvas  
+            const grayImageData = new ImageData(new Uint8ClampedArray(dst.data), dst.cols, dst.rows);  
+            canvas.width = dst.cols;  
+            canvas.height = dst.rows;  
+            ctx.putImageData(grayImageData, 0, 0);  
+
+            // Free memory  
+            src.delete();  
+            dst.delete();  
+        }  
+    </script>  
+</body>  
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>Biochemistry Word Processor</title>  
+    <style>  
+        body {  
+            font-family: Arial, sans-serif;  
+            text-align: center;  
+            margin-top: 50px;  
+        }  
+        button {  
+            margin: 10px;  
+            padding: 10px 20px;  
+            font-size: 16px;  
+            cursor: pointer;  
+        }  
+        #buttons-container {  
+            display: none; /* Initially hide the buttons */  
+        }  
+    </style>  
+</head>  
+<body>  
+    <h1>Biochemistry Word Processor</h1>  
+    <button id="showAllButton" onclick="showAll()">Show All Buttons</button>  
+    <div id="buttons-container">  
+        <button id="searchButton" onclick="search()">Search</button>  
+        <button id="practiceButton" onclick="practice()">Practice</button>  
+        <button id="editButton" onclick="edit()">Edit</button>  
+        <button id="quitButton" onclick="quit()">Quit</button>  
+    </div>  
+
+    <script>  
+        // Show all buttons  
+        function showAll() {  
+            document.getElementById('buttons-container').style.display = 'block';  
+            document.getElementById('showAllButton').style.display = 'none';  
+        }  
+
+        // Example functionality - Search  
+        function search() {  
+            alert("Search function executed!");  
+        }  
+
+        // Example functionality - Practice  
+        function practice() {  
+            alert("Practice function executed!");  
+        }  
+
+        // Example functionality - Edit  
+        function edit() {  
+            alert("Edit function executed!");  
+        }  
+
+        // Example functionality - Quit  
+        function quit() {  
+            alert("Program has exited!");  
+        }  
+    </script>  
+</body>  
+</html>
